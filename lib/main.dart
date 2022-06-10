@@ -20,7 +20,6 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       home: AnimatedSplashScreen.withScreenFunction(
         splash: 'assets/images/image.png',
-        splashIconSize: 500,
         screenFunction: () async {
           return loginScreen();
         },
