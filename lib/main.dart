@@ -3,9 +3,9 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vcs_client_app/Screens/Auth/loginScreen.dart';
+import 'package:vcs_client_app/Screens/Auth/login_screen.dart';
 
-import 'package:vcs_client_app/Screens/Auth/onboardScreen.dart';
+import 'package:vcs_client_app/Screens/Auth/onboard_screen.dart';
 
 int? isViewed;
 void main() async {
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         splash: 'assets/images/image.png',
         screenFunction: () async {
           //return isViewed != 0 ? OnBoard() : loginScreen();
-          return OnBoard();
+          return loginScreen();
         },
         splashTransition: SplashTransition.fadeTransition,
         backgroundColor: const Color.fromARGB(255, 233, 230, 230),

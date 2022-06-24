@@ -33,4 +33,12 @@ List<OnboardModel> screens = <OnboardModel>[
     bg: Colors.white,
     button: Color(0xFF4756DF),
   ),
+  OnboardModel(
+    img: 'assets/images/Veterinary-pana.png',
+    text: "Digital Veterinary Clinic",
+    desc:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pulvinar dui et erat convallis dapibus. Duis dolor mauris, bibendum non purus nec, finibus accumsan lectus. Nulla malesuada laoreet erat. In arcu nunc, egestas at erat ut, tristique pellentesque augue.",
+    bg: Colors.white,
+    button: Color(0xFF4756DF),
+  ),
 ];

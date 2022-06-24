@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vcs_client_app/Models/onboard_model.dart';
-import 'package:vcs_client_app/Screens/Auth/loginScreen.dart';
+import 'package:vcs_client_app/Screens/Auth/login_screen.dart';
 
 class OnBoard extends StatefulWidget {
   @override
