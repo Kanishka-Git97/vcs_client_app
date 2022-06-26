@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:vcs_client_app/Components/custom_text_field.dart';
 import 'package:vcs_client_app/Screens/Auth/onboard_screen.dart';
 
@@ -64,8 +65,17 @@ class _loginScreenState extends State<loginScreen> {
                 lableTxt: 'Password',
                 mode: true,
               ),
+              Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: const Text(
+                      "Forgot Password?",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  )),
               const SizedBox(
-                height: 20,
+                height: 30,
               ),
               SizedBox(
                 height: 60,
@@ -115,6 +125,15 @@ class _loginScreenState extends State<loginScreen> {
           ),
         ),
       ),
+      persistentFooterButtons: const [
+        Center(
+          child: Text(
+            "Application Developed By Purna Kanishka",
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.grey, fontSize: 10),
+          ),
+        )
+      ],
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vcs_client_app/Screens/Auth/login_screen.dart';
 
 import 'package:vcs_client_app/Screens/Auth/onboard_screen.dart';
+import 'package:vcs_client_app/Screens/Home/home_screen.dart';
 
 int? isViewed;
 void main() async {
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
         splash: 'assets/images/image.png',
         screenFunction: () async {
           //return isViewed != 0 ? OnBoard() : loginScreen();
-          return loginScreen();
+          return Home();
         },
         splashTransition: SplashTransition.fadeTransition,
         backgroundColor: const Color.fromARGB(255, 233, 230, 230),
