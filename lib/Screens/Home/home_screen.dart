@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vcs_client_app/Components/pet_profile_card.dart';
 import 'package:vcs_client_app/Components/profile_card.dart';
 
 import 'package:vcs_client_app/Components/search_bar.dart';
@@ -21,6 +22,15 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.black),
+        actions: const [
+          SizedBox(
+            width: 100,
+            child: Image(
+              image: AssetImage('assets/images/image.png'),
+            ),
+          ),
+          SizedBox(width: 20),
+        ],
       ),
       drawer: const NavBar(),
       body: SafeArea(
@@ -57,6 +67,11 @@ class _HomeState extends State<Home> {
               ),
             ),
             buildProfileList(),
+            const SizedBox(
+              height: 10,
+            ),
+            PetProfileCard(),
+            PetProfileCard(),
           ],
         ),
       )),
