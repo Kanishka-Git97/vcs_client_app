@@ -59,7 +59,7 @@ class _HomeState extends State<Home> {
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
               child: Text(
-                'Popular Doctors',
+                'Nearby Doctors',
                 style: TextStyle(fontWeight: FontWeight.bold),
                 textAlign: TextAlign.start,
               ),
