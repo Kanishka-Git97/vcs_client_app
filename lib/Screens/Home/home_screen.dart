@@ -5,8 +5,6 @@ import 'package:vcs_client_app/Components/profile_card.dart';
 import 'package:vcs_client_app/Components/search_bar.dart';
 import 'package:vcs_client_app/Components/side_navigation.dart';
 
-import '../../Models/doctor_model.dart';
-
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -70,8 +68,26 @@ class _HomeState extends State<Home> {
             const SizedBox(
               height: 10,
             ),
-            PetProfileCard(),
-            PetProfileCard(),
+            const Align(
+              alignment: AlignmentDirectional.centerEnd,
+              child: Padding(
+                padding: EdgeInsets.only(right: 15),
+                child: Text(
+                  'Summery',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
+                ),
+              ),
+            ),
+            PetProfileCard(Colors.blueAccent, 'Shaggy', 'Dr. Sandini'),
+            PetProfileCard(
+                const Color.fromARGB(255, 2, 214, 34), 'Charli', 'Dr. Waruni'),
+            const SizedBox(
+              height: 10,
+            ),
           ],
         ),
       )),

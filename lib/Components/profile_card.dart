@@ -26,7 +26,7 @@ class ProfileCard extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 child: Text(
                   _title + '. ' + _firstName,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Color.fromARGB(255, 51, 51, 51),
                     fontWeight: FontWeight.bold,
                   ),

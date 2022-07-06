@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 
 class PetProfileCard extends StatelessWidget {
-  const PetProfileCard({Key? key}) : super(key: key);
+  //const PetProfileCard({Key? key}) : super(key: key);
+
+  Color _themeColor;
+  String _petName;
+  String _doctorName;
+
+  PetProfileCard(this._themeColor, this._petName, this._doctorName);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: Colors.blue,
+        color: _themeColor,
       ),
       height: 150,
       width: double.infinity,
@@ -27,7 +33,7 @@ class PetProfileCard extends StatelessWidget {
                         'https://th.bing.com/th/id/OIP.DWU7_SVU8-phEQKj49AiZwHaE7?pid=ImgDet&w=800&h=533&rs=1'),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 15,
                 ),
                 Column(
@@ -35,18 +41,18 @@ class PetProfileCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Sample Name',
-                      style: TextStyle(color: Colors.white),
+                      _petName,
+                      style: const TextStyle(color: Colors.white),
                     ),
                     Text(
-                      'Sample Designation',
-                      style: TextStyle(color: Colors.white),
+                      _doctorName,
+                      style: const TextStyle(color: Colors.white),
                     ),
                   ],
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
             Row(
@@ -61,7 +67,7 @@ class PetProfileCard extends StatelessWidget {
                     child: CircleAvatar(
                       child: IconButton(
                         onPressed: () {},
-                        icon: Icon(Icons.video_call),
+                        icon: const Icon(Icons.video_call),
                       ),
                     ),
                   ),
@@ -74,7 +80,7 @@ class PetProfileCard extends StatelessWidget {
                     child: CircleAvatar(
                       child: IconButton(
                         onPressed: () {},
-                        icon: Icon(Icons.chat_bubble),
+                        icon: const Icon(Icons.chat_bubble),
                       ),
                     ),
                   ),
@@ -87,7 +93,7 @@ class PetProfileCard extends StatelessWidget {
                     child: CircleAvatar(
                       child: IconButton(
                         onPressed: () {},
-                        icon: Icon(Icons.account_box),
+                        icon: const Icon(Icons.account_box),
                       ),
                     ),
                   ),
@@ -100,12 +106,12 @@ class PetProfileCard extends StatelessWidget {
                     child: CircleAvatar(
                       child: IconButton(
                         onPressed: () {},
-                        icon: Icon(Icons.leaderboard),
+                        icon: const Icon(Icons.leaderboard),
                       ),
                     ),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Container(
                     width: 140,
                     height: 40,
@@ -114,7 +120,7 @@ class PetProfileCard extends StatelessWidget {
                       color: Color.fromARGB(255, 235, 235, 235),
                     ),
                     child: Column(
-                      children: [
+                      children: const [
                         SizedBox(
                           height: 5,
                         ),
