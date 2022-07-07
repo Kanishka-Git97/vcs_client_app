@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vcs_client_app/Components/back_arrow.dart';
-import 'package:vcs_client_app/Components/custom_icon_button.dart';
+
+import 'package:vcs_client_app/Components/custom_button.dart';
 import 'package:vcs_client_app/Components/doctor_header.dart';
 import 'package:vcs_client_app/Components/time_card.dart';
 
@@ -103,7 +103,17 @@ class _DoctorScreenState extends State<DoctorScreen> {
                 ),
                 const SizedBox(
                   height: 10,
-                )
+                ),
+                CustomButton(
+                    height: 50.0,
+                    btnColor: Colors.blueAccent,
+                    fontColor: Colors.white,
+                    fontSize: 15.0,
+                    btnText: 'Make Appointment',
+                    onPress: () {}),
+                const SizedBox(
+                  height: 7,
+                ),
               ],
             ),
           )
