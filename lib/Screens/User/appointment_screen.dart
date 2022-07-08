@@ -41,7 +41,8 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                 height: 10,
               ),
               Container(
-                height: 250,
+                height: 300,
+                width: double.infinity,
                 //color: Colors.grey,
                 child: SfCalendar(
                   view: CalendarView.month,

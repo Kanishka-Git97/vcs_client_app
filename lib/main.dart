@@ -9,6 +9,7 @@ import 'package:vcs_client_app/Screens/Auth/onboard_screen.dart';
 import 'package:vcs_client_app/Screens/User/appointment_screen.dart';
 import 'package:vcs_client_app/Screens/User/doctor_screen.dart';
 import 'package:vcs_client_app/Screens/Home/home_screen.dart';
+import 'package:vcs_client_app/Screens/User/payment_screen.dart';
 
 int? isViewed;
 void main() async {
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         splash: 'assets/images/image.png',
         screenFunction: () async {
           //return isViewed != 0 ? OnBoard() : loginScreen();
-          return AppointmentScreen();
+          return PaymentScreen();
         },
         splashTransition: SplashTransition.fadeTransition,
         backgroundColor: const Color.fromARGB(255, 233, 230, 230),
