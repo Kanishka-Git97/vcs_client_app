@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vcs_client_app/Components/custom_text_field.dart';
 import 'package:vcs_client_app/Screens/Auth/onboard_screen.dart';
+import 'package:vcs_client_app/Screens/Register/register_screen.dart';
 
 class loginScreen extends StatefulWidget {
   @override
@@ -114,7 +115,8 @@ class _loginScreenState extends State<loginScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => OnBoard()));
+                                        builder: (context) =>
+                                            RegisterScreen()));
                               },
                           ),
                         ],
