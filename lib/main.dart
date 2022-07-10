@@ -7,6 +7,7 @@ import 'package:vcs_client_app/Screens/Auth/login_screen.dart';
 
 import 'package:vcs_client_app/Screens/Auth/onboard_screen.dart';
 import 'package:vcs_client_app/Screens/Register/account_setup_screen.dart';
+import 'package:vcs_client_app/Screens/Register/location_setup_screen.dart';
 import 'package:vcs_client_app/Screens/Register/register_screen.dart';
 import 'package:vcs_client_app/Screens/User/appointment_screen.dart';
 import 'package:vcs_client_app/Screens/User/doctor_screen.dart';
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
         splash: 'assets/images/image.png',
         screenFunction: () async {
           //return isViewed != 0 ? OnBoard() : loginScreen();
-          return AccountSetupScreen();
+          return RegisterScreen();
         },
         splashTransition: SplashTransition.fadeTransition,
         backgroundColor: const Color.fromARGB(255, 233, 230, 230),

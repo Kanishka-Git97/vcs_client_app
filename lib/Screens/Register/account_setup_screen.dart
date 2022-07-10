@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:vcs_client_app/Components/custom_button.dart';
+import 'package:vcs_client_app/Screens/Register/location_setup_screen.dart';
 
 class AccountSetupScreen extends StatefulWidget {
   const AccountSetupScreen({Key? key}) : super(key: key);
@@ -111,7 +113,12 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                   fontColor: Colors.white,
                   fontSize: 15,
                   btnText: 'Next',
-                  onPress: () {})
+                  onPress: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => LocationSetupScreen()));
+                  }),
             ],
           ),
         ),

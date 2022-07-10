@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:vcs_client_app/Components/custom_button.dart';
 import 'package:vcs_client_app/Components/custom_text_field.dart';
 import 'package:vcs_client_app/Screens/Auth/login_screen.dart';
+import 'package:vcs_client_app/Screens/Register/account_setup_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -141,7 +142,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       fontColor: Colors.white,
                       fontSize: 15,
                       btnText: 'Sign Up',
-                      onPress: () {}),
+                      onPress: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AccountSetupScreen()));
+                      }),
                   const SizedBox(
                     height: 10,
                   ),
