@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:vcs_client_app/Components/pet_profile_card.dart';
 import 'package:vcs_client_app/Components/profile_card.dart';
@@ -31,37 +33,39 @@ class _HomeState extends State<Home> {
         ],
       ),
       drawer: const NavBar(),
-      body: SafeArea(
-          child: SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           children: [
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: Text(
-                'Find Your Desired\nVeterinary',
+                'Find Your Desired Veterinary',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 32,
-                  color: Color.fromARGB(255, 38, 38, 38),
+                  color: Color.fromARGB(255, 91, 91, 91),
                 ),
+                textAlign: TextAlign.end,
               ),
             ),
             const SizedBox(
               height: 15,
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 65, right: 30),
-              child: SearchBar(),
             ),
             const SizedBox(
               height: 20,
             ),
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-              child: Text(
-                'Nearby Doctors',
-                style: TextStyle(fontWeight: FontWeight.bold),
-                textAlign: TextAlign.start,
+              child: SizedBox(
+                width: double.infinity,
+                child: Text(
+                  'Nearby Doctors',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      color: Colors.blueAccent),
+                  textAlign: TextAlign.start,
+                ),
               ),
             ),
             buildProfileList(),
@@ -71,13 +75,17 @@ class _HomeState extends State<Home> {
             const Align(
               alignment: AlignmentDirectional.centerEnd,
               child: Padding(
-                padding: EdgeInsets.only(right: 15),
-                child: Text(
-                  'Summery',
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
+                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    'My Pets',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      color: Colors.blueAccent,
+                    ),
                   ),
                 ),
               ),
@@ -90,7 +98,7 @@ class _HomeState extends State<Home> {
             ),
           ],
         ),
-      )),
+      ),
     );
   }
 

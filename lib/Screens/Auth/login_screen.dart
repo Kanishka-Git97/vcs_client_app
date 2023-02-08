@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vcs_client_app/Components/custom_text_field.dart';
 import 'package:vcs_client_app/Screens/Auth/onboard_screen.dart';
+import 'package:vcs_client_app/Screens/Home/home_screen.dart';
 import 'package:vcs_client_app/Screens/Register/register_screen.dart';
 
 class loginScreen extends StatefulWidget {
@@ -82,7 +83,10 @@ class _loginScreenState extends State<loginScreen> {
                 height: 60,
                 width: double.infinity,
                 child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Home()));
+                    },
                     style: TextButton.styleFrom(
                         shadowColor: Colors.white,
                         backgroundColor: Colors.blueAccent,

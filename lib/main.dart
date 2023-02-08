@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vcs_client_app/Screens/Auth/login_screen.dart';
 
 import 'package:vcs_client_app/Screens/Auth/onboard_screen.dart';
+import 'package:vcs_client_app/Screens/Pet/pet_registration_screen.dart';
 import 'package:vcs_client_app/Screens/Register/account_setup_screen.dart';
 import 'package:vcs_client_app/Screens/Register/location_setup_screen.dart';
 import 'package:vcs_client_app/Screens/Register/register_screen.dart';
@@ -40,6 +41,10 @@ class MyApp extends StatelessWidget {
         screenFunction: () async {
           //return isViewed != 0 ? OnBoard() : loginScreen();
           return RegisterScreen();
+          //return loginScreen();
+          // return DoctorScreen();
+          //return AppointmentScreen();
+          //return PaymentScreen();
         },
         splashTransition: SplashTransition.fadeTransition,
         backgroundColor: const Color.fromARGB(255, 233, 230, 230),
