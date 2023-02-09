@@ -40,6 +40,9 @@ dependencies:
   google_fonts: ^3.0.1
   shared_preferences: ^2.0.15
   cloud_firestore: ^3.4.2
+  flutter_map: ^2.2.0
+  latlong2: ^0.8.1
+  http: ^0.13.5
   #slider_button: ^2.0.0
 
 dev_dependencies:

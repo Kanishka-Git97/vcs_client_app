@@ -4,8 +4,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:vcs_client_app/Components/custom_button.dart';
 import 'package:vcs_client_app/Components/custom_text_field.dart';
+import 'package:vcs_client_app/Models/user.dart';
 import 'package:vcs_client_app/Screens/Auth/login_screen.dart';
 import 'package:vcs_client_app/Screens/Register/account_setup_screen.dart';
+import 'package:vcs_client_app/Screens/Register/location_setup_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -15,9 +17,61 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  bool _isConfirmChecked = false;
+  bool _isConfirmChecked = true;
+
   @override
   Widget build(BuildContext context) {
+    final TextEditingController _firstNameController = TextEditingController();
+    final TextEditingController _emailController = TextEditingController();
+    final TextEditingController _passwordController = TextEditingController();
+    final TextEditingController _confirmPasswordController =
+        TextEditingController();
+    final TextEditingController _lastNameController = TextEditingController();
+    final TextEditingController _mobileController = TextEditingController();
+
+    // Handle Form Submission
+    handleFormSubmit() {
+      // validate the form details
+      if (_firstNameController.text.isNotEmpty ||
+          _lastNameController.text.isNotEmpty ||
+          _mobileController.text.isNotEmpty ||
+          _emailController.text.isNotEmpty ||
+          _passwordController.text.isNotEmpty ||
+          _confirmPasswordController.text.isNotEmpty) {
+        // validate mobile Number
+        if (_mobileController.text.length != 10) {
+          // Show error message
+          return print("Invalid mobile number");
+        }
+        // validate Password
+        if (_passwordController.text != _confirmPasswordController.text) {
+          // SHow Erro Message
+          print(_passwordController.text);
+          return print("Password Did not match");
+        }
+        if (_passwordController.text.length > 6) {
+          return print("Please Enter Strong Password");
+        }
+        // define User Model
+        Customer _user = Customer(
+            firstName: _firstNameController.text,
+            lastName: _lastNameController.text,
+            email: _emailController.text,
+            mobile: _mobileController.text);
+        // redirect to the location page
+        print(_user.toJson());
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => LocationSetupScreen(
+                      user: _user,
+                    )));
+      } else {
+        // Show Error Message
+        return print("Required Details Are Missing");
+      }
+    }
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -92,47 +146,75 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   const SizedBox(
                     height: 10,
                   ),
-                  const CustomTextField(
-                      hintTxt: 'Full Name', lableTxt: 'Name', mode: false),
+                  CustomTextField(
+                    hintTxt: 'First Name',
+                    lableTxt: 'First Name',
+                    mode: false,
+                    controller: _firstNameController,
+                  ),
                   const SizedBox(
                     height: 10,
                   ),
-                  const CustomTextField(
-                      hintTxt: 'example@email.com',
-                      lableTxt: 'Email',
-                      mode: false),
+                  CustomTextField(
+                    hintTxt: 'Last Name',
+                    lableTxt: 'Last Name',
+                    mode: false,
+                    controller: _lastNameController,
+                  ),
                   const SizedBox(
                     height: 10,
                   ),
-                  const CustomTextField(
-                      hintTxt: 'Enter Strong Password',
-                      lableTxt: 'Password',
-                      mode: true),
+                  CustomTextField(
+                    hintTxt: 'Mobile Number',
+                    lableTxt: 'Mobile Number',
+                    mode: false,
+                    controller: _mobileController,
+                  ),
                   const SizedBox(
                     height: 10,
                   ),
-                  const CustomTextField(
-                      hintTxt: 'Confirm your Password',
-                      lableTxt: 'Confirm Password',
-                      mode: true),
+                  CustomTextField(
+                    hintTxt: 'example@email.com',
+                    lableTxt: 'Email',
+                    mode: false,
+                    controller: _emailController,
+                  ),
                   const SizedBox(
                     height: 10,
                   ),
-                  Row(
-                    children: [
-                      Checkbox(
-                          value: _isConfirmChecked,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              _isConfirmChecked = value!;
-                            });
-                          }),
-                      const Text(
-                        'Agree to the Terms and Privacy Policy',
-                        style: TextStyle(fontSize: 12),
-                      ),
-                    ],
+                  CustomTextField(
+                    hintTxt: 'Enter Strong Password',
+                    lableTxt: 'Password',
+                    mode: true,
+                    controller: _passwordController,
                   ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  CustomTextField(
+                    hintTxt: 'Confirm your Password',
+                    lableTxt: 'Confirm Password',
+                    mode: true,
+                    controller: _confirmPasswordController,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  // Row(
+                  //   children: [
+                  //     Checkbox(
+                  //         value: _isConfirmChecked,
+                  //         onChanged: (bool? value) {
+                  //           setState(() {
+                  //             _isConfirmChecked = value!;
+                  //           });
+                  //         }),
+                  //     const Text(
+                  //       'Agree to the Terms and Privacy Policy',
+                  //       style: TextStyle(fontSize: 12),
+                  //     ),
+                  //   ],
+                  // ),
                   const SizedBox(
                     height: 10,
                   ),
@@ -141,13 +223,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       btnColor: Colors.green,
                       fontColor: Colors.white,
                       fontSize: 15,
-                      btnText: 'Sign Up',
-                      onPress: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AccountSetupScreen()));
-                      }),
+                      btnText: 'Next',
+                      onPress: handleFormSubmit),
                   const SizedBox(
                     height: 10,
                   ),
@@ -158,7 +235,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       style: TextStyle(color: Colors.grey[600]),
                       children: [
                         TextSpan(
-                          text: ' Register Here',
+                          text: ' Login Here',
                           style: TextStyle(color: Colors.blueAccent),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
@@ -170,6 +247,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ],
                     ),
+                  ),
+                  const SizedBox(
+                    height: 10,
                   ),
                 ],
               ),

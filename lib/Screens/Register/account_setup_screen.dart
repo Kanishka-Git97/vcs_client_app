@@ -114,10 +114,10 @@ class _AccountSetupScreenState extends State<AccountSetupScreen> {
                   fontSize: 15,
                   btnText: 'Next',
                   onPress: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => LocationSetupScreen()));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => LocationSetupScreen()));
                   }),
             ],
           ),

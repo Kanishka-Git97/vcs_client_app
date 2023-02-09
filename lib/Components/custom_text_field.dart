@@ -5,12 +5,16 @@ class CustomTextField extends StatefulWidget {
       {Key? key,
       required this.hintTxt,
       required this.lableTxt,
-      required this.mode})
+      required this.mode,
+      this.controller,
+      this.onChange})
       : super(key: key);
 
   final String hintTxt;
   final String lableTxt;
   final bool mode;
+  final TextEditingController? controller;
+  final ValueChanged<String>? onChange;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -30,6 +34,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         child: TextField(
+          controller: widget.controller,
           decoration: InputDecoration(
               border: InputBorder.none,
               labelText: widget.lableTxt,
