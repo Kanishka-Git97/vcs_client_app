@@ -1,13 +1,18 @@
+import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:vcs_client_app/Components/custom_button.dart';
 import 'package:vcs_client_app/Components/custom_text_field.dart';
+import 'package:vcs_client_app/Constant/constant.dart';
 import 'package:vcs_client_app/Models/user.dart';
 import 'package:vcs_client_app/Screens/Auth/login_screen.dart';
 import 'package:vcs_client_app/Screens/Register/account_setup_screen.dart';
 import 'package:vcs_client_app/Screens/Register/location_setup_screen.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:vcs_client_app/Utils/image_utility.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -18,7 +23,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   bool _isConfirmChecked = true;
-
+  String imgString = sampleUser;
   @override
   Widget build(BuildContext context) {
     final TextEditingController _firstNameController = TextEditingController();
@@ -28,6 +33,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
         TextEditingController();
     final TextEditingController _lastNameController = TextEditingController();
     final TextEditingController _mobileController = TextEditingController();
+
+    // Handle Image Picker
+    _imagePicker() async {
+      String output;
+      ImagePicker().pickImage(source: ImageSource.gallery).then((img) async {
+        output = ImageUtility.base64String(await img!.readAsBytes());
+
+        setState(() {
+          imgString = output;
+        });
+      });
+    }
 
     // Handle Form Submission
     handleFormSubmit() {
@@ -41,15 +58,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
         // validate mobile Number
         if (_mobileController.text.length != 10) {
           // Show error message
-          return print("Invalid mobile number");
+          Fluttertoast.showToast(msg: "Invalid mobile number");
         }
         // validate Password
         if (_passwordController.text != _confirmPasswordController.text) {
           // SHow Erro Message
           print(_passwordController.text);
+          Fluttertoast.showToast(
+              msg: "Password Did not match",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              backgroundColor: Colors.orangeAccent,
+              textColor: Colors.white,
+              fontSize: 16.0);
           return print("Password Did not match");
         }
         if (_passwordController.text.length > 6) {
+          Fluttertoast.showToast(
+              msg: "Please Enter Strong Password",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              backgroundColor: Colors.orangeAccent,
+              textColor: Colors.white,
+              fontSize: 16.0);
           return print("Please Enter Strong Password");
         }
         // define User Model
@@ -57,7 +88,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
             firstName: _firstNameController.text,
             lastName: _lastNameController.text,
             email: _emailController.text,
-            mobile: _mobileController.text);
+            mobile: _mobileController.text,
+            password: _passwordController.text,
+            img: imgString);
         // redirect to the location page
         print(_user.toJson());
         Navigator.push(
@@ -68,7 +101,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     )));
       } else {
         // Show Error Message
-        return print("Required Details Are Missing");
+        Fluttertoast.showToast(
+            msg: "Required Details Are Missing",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        // return print("Required Details Are Missing");
       }
     }
 
@@ -115,23 +155,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       Center(
                         child: Stack(
-                          children: const [
-                            SizedBox(
-                              height: 75,
-                              width: 75,
-                              child: CircleAvatar(
-                                radius: 80.0,
-                                backgroundImage:
-                                    AssetImage('assets/images/sampleuser.webp'),
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                              ),
+                              height: 80,
+                              width: 80,
+                              child: ClipRRect(
+                                clipBehavior: Clip.antiAlias,
+                                borderRadius: BorderRadius.circular(5),
+                                child: Image.memory(
+                                  Base64Decoder().convert(imgString),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                             Positioned(
                               bottom: 0,
                               right: 0,
-                              child: Icon(
-                                Icons.add_circle_rounded,
-                                color: Colors.teal,
-                                size: 28.0,
+                              child: GestureDetector(
+                                onTap: _imagePicker,
+                                child: Icon(
+                                  Icons.add_circle_rounded,
+                                  color: Colors.teal,
+                                  size: 28.0,
+                                ),
                               ),
                             ),
                           ],

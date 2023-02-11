@@ -5,7 +5,9 @@ import 'package:vcs_client_app/Components/custom_text_field.dart';
 import 'package:vcs_client_app/Controllers/user_controller.dart';
 import 'package:vcs_client_app/Models/user.dart';
 import 'package:vcs_client_app/Models/lat_long.dart';
+import 'package:vcs_client_app/Screens/Auth/login_screen.dart';
 import 'package:vcs_client_app/Screens/Home/home_screen.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../Components/map_box.dart';
 import '../../Repositories/user_repository.dart';
@@ -68,7 +70,28 @@ class _LocationSetupScreenState extends State<LocationSetupScreen> {
       widget.user.referral = 0;
 
       var _response = await _userController.register(widget.user);
-      print(widget.user.toJson());
+      if (_response == "200") {
+        // Success Process
+        Fluttertoast.showToast(
+            msg: "Successfully Registered",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: Colors.greenAccent,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => loginScreen()));
+      } else {
+        // fail Process
+
+        Fluttertoast.showToast(
+            msg: "Something Went Wrong",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }
     }
   }
 

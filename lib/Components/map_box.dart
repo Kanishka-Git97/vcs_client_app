@@ -12,7 +12,7 @@ class MapBox extends StatefulWidget {
 }
 
 class _MapBoxState extends State<MapBox> {
-  final List<Marker> markers = [];
+  List<Marker> markers = [];
 
   // make Marker
   _makeMarker() {
@@ -28,12 +28,13 @@ class _MapBoxState extends State<MapBox> {
                 double.parse(location.longitude.toString())),
             builder: (ctx) => Container(
                   child: Icon(
-                    Icons.pets,
-                    size: 50,
+                    Icons.location_pin,
+                    size: 30,
                     color: Colors.blueAccent,
                   ),
                 )));
       }
+      return _temp;
     }
   }
 
@@ -47,19 +48,23 @@ class _MapBoxState extends State<MapBox> {
   Widget build(BuildContext context) {
     return FlutterMap(
       options: MapOptions(
-        center: LatLng(5.95492, 80.554956),
+        center: widget.locations!.length > 0
+            ? LatLng(widget.locations![0].latitude!.toDouble(),
+                widget.locations![0].longitude!.toDouble())
+            : LatLng(5.95492, 80.554956),
         zoom: 13.0,
       ),
       layers: [
         TileLayerOptions(
-            urlTemplate:
-                "https://api.mapbox.com/styles/v1/purna97/clcof8psh001i14qhcvixrtna/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicHVybmE5NyIsImEiOiJjbGM3aGFzcnAyb2NtM3dwOXZjbXludzh2In0.Crzzm-eo_GfPDne-ibrlAQ",
-            additionalOptions: {
-              'accessToken':
-                  'pk.eyJ1IjoicHVybmE5NyIsImEiOiJjbGM3aGFzcnAyb2NtM3dwOXZjbXludzh2In0.Crzzm-eo_GfPDne-ibrlAQ',
-              'id': 'mapbox.mapbox-streets-v8'
-            }),
-        MarkerLayerOptions(markers: markers)
+          urlTemplate:
+              "https://api.mapbox.com/styles/v1/purna97/clcof8psh001i14qhcvixrtna/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoicHVybmE5NyIsImEiOiJjbGM3aGFzcnAyb2NtM3dwOXZjbXludzh2In0.Crzzm-eo_GfPDne-ibrlAQ",
+          additionalOptions: {
+            'accessToken':
+                'pk.eyJ1IjoicHVybmE5NyIsImEiOiJjbGM3aGFzcnAyb2NtM3dwOXZjbXludzh2In0.Crzzm-eo_GfPDne-ibrlAQ',
+            'id': 'mapbox.mapbox-streets-v8'
+          },
+        ),
+        MarkerLayerOptions(markers: _makeMarker())
       ],
     );
   }

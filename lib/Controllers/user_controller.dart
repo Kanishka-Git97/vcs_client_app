@@ -8,4 +8,12 @@ class UserController {
   Future<String> register(Customer customer) {
     return userService.register(customer);
   }
+
+  Future<Customer> login(String username, String password) {
+    return userService.login(username, password);
+  }
+
+  Future<String> update(Customer customer) {
+    return userService.update(customer);
+  }
 }

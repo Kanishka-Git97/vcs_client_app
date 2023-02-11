@@ -1,10 +1,16 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:vcs_client_app/Components/custom_text_field.dart';
+import 'package:vcs_client_app/Provider/user_provider.dart';
 import 'package:vcs_client_app/Screens/Auth/onboard_screen.dart';
 import 'package:vcs_client_app/Screens/Home/home_screen.dart';
+import 'package:vcs_client_app/Screens/Main/main_panel.dart';
 import 'package:vcs_client_app/Screens/Register/register_screen.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+import '../../Provider/doctor_provider.dart';
 
 class loginScreen extends StatefulWidget {
   @override
@@ -14,6 +20,27 @@ class loginScreen extends StatefulWidget {
 class _loginScreenState extends State<loginScreen> {
   @override
   Widget build(BuildContext context) {
+    context.read<DoctorProvider>().setDoctors();
+    // Text Editing Controller
+    final TextEditingController _usernameController = TextEditingController();
+    final TextEditingController _passwordController = TextEditingController();
+    // Handle Login
+    _handleLogin() async {
+      if (_usernameController.text.isNotEmpty ||
+          _passwordController.text.isNotEmpty) {
+        Provider.of<UserProvider>(context, listen: false)
+            .login(_usernameController.text, _passwordController.text, context);
+      } else {
+        Fluttertoast.showToast(
+            msg: "Required Details Are Missing",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -57,25 +84,21 @@ class _loginScreenState extends State<loginScreen> {
               const SizedBox(
                 height: 35,
               ),
-              const CustomTextField(
-                  hintTxt: 'example@email.com', lableTxt: 'Email', mode: false),
+              CustomTextField(
+                hintTxt: 'example@email.com',
+                lableTxt: 'Email',
+                mode: false,
+                controller: _usernameController,
+              ),
               const SizedBox(
                 height: 10,
               ),
-              const CustomTextField(
+              CustomTextField(
                 hintTxt: '',
                 lableTxt: 'Password',
                 mode: true,
+                controller: _passwordController,
               ),
-              Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: const Text(
-                      "Forgot Password?",
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  )),
               const SizedBox(
                 height: 30,
               ),
@@ -83,10 +106,7 @@ class _loginScreenState extends State<loginScreen> {
                 height: 60,
                 width: double.infinity,
                 child: TextButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Home()));
-                    },
+                    onPressed: _handleLogin,
                     style: TextButton.styleFrom(
                         shadowColor: Colors.white,
                         backgroundColor: Colors.blueAccent,

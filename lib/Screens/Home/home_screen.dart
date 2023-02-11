@@ -6,6 +6,7 @@ import 'package:vcs_client_app/Components/profile_card.dart';
 
 import 'package:vcs_client_app/Components/search_bar.dart';
 import 'package:vcs_client_app/Components/side_navigation.dart';
+import 'package:vcs_client_app/Models/user.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -90,9 +91,9 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
-            PetProfileCard(Colors.blueAccent, 'Shaggy', 'Dr. Sandini'),
-            PetProfileCard(
-                const Color.fromARGB(255, 2, 214, 34), 'Charli', 'Dr. Waruni'),
+            // PetProfileCard(Colors.blueAccent, 'Shaggy', 'Dr. Sandini'),
+            // PetProfileCard(
+            //     const Color.fromARGB(255, 2, 214, 34), 'Charli', 'Dr. Waruni'),
             const SizedBox(
               height: 10,
             ),

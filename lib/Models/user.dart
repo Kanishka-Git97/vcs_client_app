@@ -10,6 +10,8 @@ class Customer {
   String? registerVia;
   int? referral;
   int? user;
+  String? password;
+  String? img;
 
   Customer(
       {this.id,
@@ -22,7 +24,9 @@ class Customer {
       this.latitude,
       this.registerVia,
       this.referral,
-      this.user});
+      this.user,
+      this.password,
+      this.img});
 
   Customer.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -36,6 +40,8 @@ class Customer {
     registerVia = json['registerVia'];
     referral = json['referral'];
     user = json['user'];
+    password = json['password'];
+    img = json['img'];
   }
 
   Map<String, dynamic> toJson() {
@@ -51,6 +57,8 @@ class Customer {
     data['registerVia'] = this.registerVia;
     data['referral'] = this.referral;
     data['user'] = this.user;
+    data['password'] = this.password;
+    data['img'] = this.img;
     return data;
   }
 }
