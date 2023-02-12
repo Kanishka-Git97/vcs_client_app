@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "293087494856",
+    "project_id": "vcsolution-12034",
+    "storage_bucket": "vcsolution-12034.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:293087494856:android:afbfdff09c167b7e3adbfd",
+        "android_client_info": {
+          "package_name": "com.example.vcs_client_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "293087494856-5fishbarb6g6kvkpm2528uj71355764l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYXoy96rt8nWi8mWA0HB58WwhepmPyqz8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "293087494856-5fishbarb6g6kvkpm2528uj71355764l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
