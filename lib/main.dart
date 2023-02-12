@@ -20,6 +20,7 @@ import 'package:vcs_client_app/Screens/User/doctor_screen.dart';
 import 'package:vcs_client_app/Screens/Home/home_screen.dart';
 import 'package:vcs_client_app/Screens/User/payment_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:vcs_client_app/Screens/Video/videoroom.dart';
 
 int? isViewed;
 void main() async {
@@ -62,9 +63,10 @@ class MyApp extends StatelessWidget {
       home: AnimatedSplashScreen.withScreenFunction(
         splash: 'assets/images/image.png',
         screenFunction: () async {
-          //return isViewed != 0 ? OnBoard() : loginScreen();
+          return isViewed != 0 ? OnBoard() : loginScreen();
           // return RegisterScreen();
-          return loginScreen();
+          // return VideoRoom();
+          
           // return DoctorScreen();
           //return AppointmentScreen();
           //return PaymentScreen();

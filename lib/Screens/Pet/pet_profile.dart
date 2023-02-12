@@ -5,9 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:vcs_client_app/Components/chat_bubble.dart';
+import 'package:vcs_client_app/Components/custom_button.dart';
+import 'package:vcs_client_app/Controllers/certification_controller.dart';
 import 'package:vcs_client_app/Controllers/doctor_controller.dart';
 import 'package:vcs_client_app/Controllers/pet_controller.dart';
 import 'package:intl/intl.dart';
+import 'package:vcs_client_app/Models/certificate.dart';
 import 'package:vcs_client_app/Models/doctor.dart';
 import 'package:vcs_client_app/Screens/Search/search_screen.dart';
 
@@ -16,9 +19,11 @@ import 'dart:math';
 import '../../Models/medical.dart';
 import '../../Models/pet.dart';
 import '../../Models/weight.dart';
+import '../../Repositories/certification_repository.dart';
 import '../../Repositories/doctor_repository.dart';
 import '../../Repositories/pet_repository.dart';
 import '../Appointment/appointment.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class PetProfile extends StatefulWidget {
   const PetProfile({super.key, required this.pet});
@@ -32,6 +37,8 @@ class _PetProfileState extends State<PetProfile> {
   // Dependencies
   var _petController = PetController(PetRepository());
   var _doctorController = DoctorController(DoctorRepository());
+  var _certificationController =
+      CertificationController(CertificationRepository());
 
   // Varibles
   List<Medical> comments = [];
@@ -54,6 +61,37 @@ class _PetProfileState extends State<PetProfile> {
     });
   }
 
+  _handleCertificateRequest() async {
+    print("certificate request");
+    Certificate certificate = Certificate(
+        doctor: widget.pet.doctor,
+        client: widget.pet.client,
+        pet: widget.pet.id,
+        date: DateTime.now().toString(),
+        status: 'Pending');
+    var response = await _certificationController.add(certificate);
+    if (response == "true") {
+      // Success
+      Fluttertoast.showToast(
+          msg:
+              "Successfully Requested Veterinary Will Send Certificate to your Email",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.greenAccent,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    } else {
+      // error
+      Fluttertoast.showToast(
+          msg: "Something went wrong",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.orangeAccent,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+  }
+
   // Doctor Section
   _doctorSection(Pet pet) async {
     Widget doctorSection;
@@ -61,95 +99,121 @@ class _PetProfileState extends State<PetProfile> {
       // Process Doctor Details
       Doctor doctor = Doctor();
       doctor = await _doctorController.getDoctor(pet.doctor!);
-      doctorSection = Container(
-        height: 100,
-        width: double.infinity,
-        margin: const EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          color: Colors.white,
-          boxShadow: const [
-            BoxShadow(color: Color.fromARGB(28, 0, 0, 0), spreadRadius: 2)
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: Row(
-            children: [
-              Container(
-                height: 90,
-                width: 90,
-                clipBehavior: Clip.antiAlias,
-                child: Image.memory(
-                  Base64Decoder().convert(doctor.img.toString()),
-                  fit: BoxFit.cover,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                  color: Colors.redAccent,
-                  // image: DecorationImage(
-                  //   image: NetworkImage(location.image.toString()),
-                  //   fit: BoxFit.cover,
-                  // ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Todo: Get Data from Provider or Previous Screen
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          children: [
-                            Text(
-                              doctor.title.toString() +
-                                  " " +
-                                  doctor.firstName.toString() +
-                                  " " +
-                                  doctor.lastName.toString(),
-                              style: const TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.w600),
-                            ),
-                            Row(children: [
-                              Icon(Icons.location_on),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(doctor.address.toString())
-                            ]),
-                          ],
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(left: 30),
-                          child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => AppointmentScreen(
-                                              doctor: doctor,
-                                              pet: widget.pet,
-                                            )));
-                              },
-                              child:
-                                  const CircleAvatar(child: Icon(Icons.add))),
-                        ),
-                      ],
-                    ),
-                    // RatingPanel(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ],
-                ),
-              )
+      doctorSection = Column(children: [
+        Container(
+          height: 100,
+          width: double.infinity,
+          margin: const EdgeInsets.all(8.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10.0),
+            color: Colors.white,
+            boxShadow: const [
+              BoxShadow(color: Color.fromARGB(28, 0, 0, 0), spreadRadius: 2)
             ],
           ),
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Row(
+              children: [
+                Container(
+                  height: 90,
+                  width: 90,
+                  clipBehavior: Clip.antiAlias,
+                  child: Image.memory(
+                    Base64Decoder().convert(doctor.img.toString()),
+                    fit: BoxFit.cover,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    color: Colors.redAccent,
+                    // image: DecorationImage(
+                    //   image: NetworkImage(location.image.toString()),
+                    //   fit: BoxFit.cover,
+                    // ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // Todo: Get Data from Provider or Previous Screen
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            children: [
+                              Text(
+                                doctor.title.toString() +
+                                    " " +
+                                    doctor.firstName.toString() +
+                                    " " +
+                                    doctor.lastName.toString(),
+                                style: const TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w600),
+                              ),
+                              Row(children: [
+                                Icon(Icons.location_on),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Text(doctor.address.toString())
+                              ]),
+                            ],
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(left: 30),
+                            child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              AppointmentScreen(
+                                                doctor: doctor,
+                                                pet: widget.pet,
+                                              )));
+                                },
+                                child:
+                                    const CircleAvatar(child: Icon(Icons.add))),
+                          ),
+                        ],
+                      ),
+                      // RatingPanel(),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
-      );
+        const SizedBox(
+          height: 10,
+        ),
+        TextButton(
+            onPressed: () => _handleCertificateRequest(),
+            child: Container(
+              height: 50,
+              decoration: BoxDecoration(
+                  color: Colors.blueAccent,
+                  borderRadius: BorderRadius.circular(10.0)),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(
+                      Icons.verified_user_rounded,
+                      color: Colors.white,
+                    ),
+                    Text(
+                      "Request Medical Certification",
+                      style: TextStyle(color: Colors.white),
+                    )
+                  ]),
+            ))
+      ]);
     } else {
       // Process Add Doctor Section
       doctorSection = Container(
@@ -378,7 +442,7 @@ class _PetProfileState extends State<PetProfile> {
                         const SizedBox(
                           height: 15,
                         ),
-                        doctorSection
+                        doctorSection,
                       ],
                     ),
                   ),
